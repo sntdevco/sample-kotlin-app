@@ -16,31 +16,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun rancolor(): Int {
-        val randint = Random(SystemClock.elapsedRealtime()).nextInt(0, 5);
-        if (randint == 0) {
-            return android.graphics.Color.RED
-        } else if (randint == 1) {
-            return android.graphics.Color.CYAN
-        } else if (randint == 2) {
-            return android.graphics.Color.MAGENTA
-        } else if (randint == 3) {
-            return android.graphics.Color.GREEN
-        } else if (randint == 4) {
-            return android.graphics.Color.BLUE
-        } else {
-            return android.graphics.Color.BLACK
+        // Generate a random number to return a random color
+        val randint = Random(SystemClock.elapsedRealtime()).nextInt(0, 5)
+        when (randint) {
+            0 -> return android.graphics.Color.RED
+            1 -> return android.graphics.Color.CYAN
+            2 -> return android.graphics.Color.MAGENTA
+            3 -> return android.graphics.Color.GREEN
+            4 -> return android.graphics.Color.BLUE
+            5 -> return android.graphics.Color.BLACK
+            else -> {
+                // This is just boilerplate, it would never be triggered, unless there's something
+                // wrong with the framework
+                return android.graphics.Color.GRAY
+            }
         }
     }
 
+    // This is the onclick function for our button
     fun sayHi(view: android.view.View) {
+        // Get the EditText item using the ID
+        // Note that we use val since the value of this doesn't change
         val namebox: EditText = findViewById(R.id.namebox)
-        val name = namebox.text
+        val name = namebox.text // Get the content
+        // Now get msgbox which is the view we will be writing to
         val msgbox: TextView = findViewById(R.id.msgview)
+        // Do a basic check to ensure that the name length is not empty
         if (name.length <= 0) {
             Toast.makeText(this, "That is an invalid name!", Toast.LENGTH_SHORT).show()
         } else {
-            msgbox.setTextColor(rancolor());
-            msgbox.text = "Hello, $name!";
+            // Now set the text color to something random and write to the msgbox
+            msgbox.setTextColor(rancolor())
+            msgbox.text = "Hello, $name!"
         }
     }
 }
